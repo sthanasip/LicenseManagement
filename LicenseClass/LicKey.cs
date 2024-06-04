@@ -1,5 +1,6 @@
 ﻿using License.Common.Constant;
 using License.Common.Helper;
+using License.Common.Model;
 using System;
 using System.Text;
 using System.Text.Json;
@@ -22,47 +23,38 @@ namespace LicKey
         {
             try
             {
-                string decryptedLicenseCode = EncryptionService.DecryptString(Encoding.UTF8.GetString(Convert.FromBase64String(licenseCode)), encryptionKey);
+                string decodedLicense = Encoding.UTF8.GetString(Convert.FromBase64String(licenseCode));
+                string decryptedLicense = EncryptionService.DecryptString(decodedLicense, encryptionKey);
+                var licenseData = JsonSerializer.Deserialize<LicenseKeyGeneratorModel>(decryptedLicense);
 
+                if (licenseData == null)
+                {
+                    return JsonSerializer.Serialize(new LicenseKeyResponse(false, 0, "", "Invalid license for this machine."));
+                }
+                DateTime validityDate = DateTime.ParseExact(licenseData.ExpiryDate, "dd/MM/yyyy", null);
                 clsComputerInfo hw = new clsComputerInfo();
-                string currentHwId = hw.GenerateSHA512String(hw.GetHardwareId());
+                string hwId = hw.GetHardwareId();
+                string hashedHwId = hw.GenerateSHA512String(hwId);
 
-                if (decryptedLicenseCode == currentHwId)
+
+                if (licenseData.RequestKey != hashedHwId)
                 {
-                    var result = new
-                    {
-                        result = true,
-                        license = 20,
-                        validity = "31/12/2030",
-                        message = ""
-                    };
-                    return JsonSerializer.Serialize(result);
+                    return JsonSerializer.Serialize(new LicenseKeyResponse(false, 0, "", "Invalid license for this machine."));
                 }
-                else
+
+                if (validityDate < DateTime.Now)
                 {
-                    var result = new
-                    {
-                        result = false,
-                        license = 0,
-                        validity = "",
-                        message = "Hardware ID does not match."
-                    };
-                    return JsonSerializer.Serialize(result);
+                    return JsonSerializer.Serialize(new LicenseKeyResponse(false, 0, "", "License has expired."));
                 }
+
+                return JsonSerializer.Serialize(new LicenseKeyResponse(true, licenseData.NumberOfLicenses, licenseData.ExpiryDate, ""));
             }
             catch (Exception ex)
             {
-                var result = new
-                {
-                    result = false,
-                    license = 0,
-                    validity = "",
-                    message = $"Error: {ex.Message}"
-                };
-                return JsonSerializer.Serialize(result);
+                return JsonSerializer.Serialize(new LicenseKeyResponse(false, 0, "", $"Error: {ex.Message}"));
             }
         }
 
-        
+
     }
 }

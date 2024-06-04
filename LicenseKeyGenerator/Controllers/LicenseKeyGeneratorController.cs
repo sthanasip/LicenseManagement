@@ -26,8 +26,14 @@ namespace LicenseKeyGenerator.Controllers
         public IActionResult GenerateCode(LicenseKeyModel model)
         {
             string licenseKeyCode = _licenseKeyGeneratorService.GenerateLicenseKeyCode(model);
-            return new OkObjectResult(licenseKeyCode);
+            return new OkObjectResult(LicVerification(licenseKeyCode));
         }
 
+        private string LicVerification(string code)
+        {
+            var licKey = new LicKey.LicKey();
+            var verifiedResp = licKey.LicVerification(code);
+            return verifiedResp;
+        }
     }
 }
