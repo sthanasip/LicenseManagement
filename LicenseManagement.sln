@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LicenseClass", "LicenseClas
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LicenseKeyGenerator", "LicenseKeyGenerator\LicenseKeyGenerator.csproj", "{0E9A2250-1C1F-4AD2-8157-3FB248E38ADB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "License.Common", "License.Common\License.Common.csproj", "{ECF8D608-61CD-422C-A803-43B147F2693E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{0E9A2250-1C1F-4AD2-8157-3FB248E38ADB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E9A2250-1C1F-4AD2-8157-3FB248E38ADB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E9A2250-1C1F-4AD2-8157-3FB248E38ADB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ECF8D608-61CD-422C-A803-43B147F2693E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ECF8D608-61CD-422C-A803-43B147F2693E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ECF8D608-61CD-422C-A803-43B147F2693E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ECF8D608-61CD-422C-A803-43B147F2693E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

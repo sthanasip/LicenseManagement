@@ -11,7 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\License.Common\License.Common.csproj" />
     <ProjectReference Include="..\LicenseClass\LicenseClass.csproj" />
   </ItemGroup>
 

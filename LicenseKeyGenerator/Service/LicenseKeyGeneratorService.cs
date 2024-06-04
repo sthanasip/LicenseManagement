@@ -1,16 +1,15 @@
-﻿using License.Common.Constant;
-using License.Common.Helper;
-using LicenseKeyGenerator.Models;
+﻿using LicenseKeyGenerator.Models;
 using System.Text;
 using LicKey;
 using System.Text.Json;
-using License.Common.Model;
+using LicenseKeyGenerator.Helpers;
+using LicenseKeyGenerator.Models.Records;
 
 namespace LicenseKeyGenerator.Service
 {
     public class LicenseKeyGeneratorService : ILicenseKeyGeneratorService
     {
-        private readonly string EncryptionKey = KeyConstant.EncryptionKey;
+        private readonly string EncryptionKey = "HardCodedEncryptionKey123";
         public string GenerateLicenseKeyCode(LicenseKeyModel model)
         {
             //decrypt key to get hashed value

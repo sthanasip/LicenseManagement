@@ -1,7 +1,6 @@
-﻿using License.Common.Constant;
-using License.Common.Helper;
-using License.Common.Model;
-using System;
+﻿using System;
+using System.IO;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 
@@ -9,13 +8,13 @@ namespace LicKey
 {
     public class LicKey
     {
-        private readonly string encryptionKey = KeyConstant.EncryptionKey;
+        private readonly string encryptionKey = "HardCodedEncryptionKey123";
         public string GenerateRequestKey()
         {
             clsComputerInfo hw = new clsComputerInfo();
             string hwId = hw.GetHardwareId();
             string hashedHwId = hw.GenerateSHA512String(hwId);
-            string encryptedHwId = EncryptionService.EncryptString(hashedHwId, encryptionKey);
+            string encryptedHwId = EncryptString(hashedHwId, encryptionKey);
             return Convert.ToBase64String(Encoding.UTF8.GetBytes(encryptedHwId));
         }
 
@@ -24,7 +23,7 @@ namespace LicKey
             try
             {
                 string decodedLicense = Encoding.UTF8.GetString(Convert.FromBase64String(licenseCode));
-                string decryptedLicense = EncryptionService.DecryptString(decodedLicense, encryptionKey);
+                string decryptedLicense = DecryptString(decodedLicense, encryptionKey);
                 var licenseData = JsonSerializer.Deserialize<LicenseKeyGeneratorModel>(decryptedLicense);
 
                 if (licenseData == null)
@@ -55,6 +54,53 @@ namespace LicKey
             }
         }
 
+        private string EncryptString(string plainText, string key)
+        {
+            using (Aes aesAlg = Aes.Create())
+            {
+                aesAlg.Key = Encoding.UTF8.GetBytes(key.PadRight(32));
+                aesAlg.IV = new byte[16]; // Zero IV for simplicity. In production, use a random IV.
 
+                var encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+
+                using (var msEncrypt = new MemoryStream())
+                {
+                    using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                    {
+                        using (var swEncrypt = new StreamWriter(csEncrypt))
+                        {
+                            swEncrypt.Write(plainText);
+                        }
+                    }
+
+                    return Convert.ToBase64String(msEncrypt.ToArray());
+                }
+            }
+        }
+
+        private string DecryptString(string cipherText, string key)
+        {
+            using (Aes aesAlg = Aes.Create())
+            {
+                aesAlg.Key = Encoding.UTF8.GetBytes(key.PadRight(32));
+                aesAlg.IV = new byte[16]; // Zero IV for simplicity. In production, use a random IV.
+
+                var decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+
+                using (var msDecrypt = new MemoryStream(Convert.FromBase64String(cipherText)))
+                {
+                    using (var csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+                    {
+                        using (var srDecrypt = new StreamReader(csDecrypt))
+                        {
+                            return srDecrypt.ReadToEnd();
+                        }
+                    }
+                }
+            }
+        }
+
+        public record LicenseKeyGeneratorModel(string RequestKey, int NumberOfLicenses, string ExpiryDate);
+        public record LicenseKeyResponse(bool result, int license, string validity, string message);
     }
 }
