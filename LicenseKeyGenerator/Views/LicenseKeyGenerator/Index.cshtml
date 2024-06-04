@@ -1,0 +1,56 @@
+﻿@model LicenseKeyModel
+
+@{
+    ViewData["Title"] = "License Key Generator";
+}
+
+<h1>Generate License Key Code</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="GenerateCode">
+            <div class="form-group mt-1">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="control-label">Request Key:</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input asp-for="RequestKey" class="form-control" />
+                        <span asp-validation-for="RequestKey" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mt-1">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="control-label">Licenses: </label>
+                    </div>
+                    <div class="col-md-9">
+                        <input asp-for="NumberOfLicenses" class="form-control" />
+                        <span asp-validation-for="NumberOfLicenses" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mt-1">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="control-label">Expiry Date:</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input asp-for="ExpiryDate" class="form-control" />
+                        <span asp-validation-for="ExpiryDate" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mt-3">
+                <input type="submit" value="Generate Key" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
