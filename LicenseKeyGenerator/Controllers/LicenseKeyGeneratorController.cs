@@ -9,7 +9,7 @@ namespace LicenseKeyGenerator.Controllers
         private readonly ILogger<LicenseKeyGeneratorController> _logger;
         private readonly ILicenseKeyGeneratorService _licenseKeyGeneratorService;
 
-        public LicenseKeyGeneratorController(ILogger<LicenseKeyGeneratorController> logger, 
+        public LicenseKeyGeneratorController(ILogger<LicenseKeyGeneratorController> logger,
                                             ILicenseKeyGeneratorService licensekeyGeneratorService)
         {
             _logger = logger;
@@ -18,14 +18,16 @@ namespace LicenseKeyGenerator.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var licKey = new LicKey.LicKey();
+            return View(new LicenseKeyModel { RequestKey = licKey.GenerateRequestKey(), ExpiryDate = string.Empty });
         }
 
         [HttpPost]
-        public IActionResult GenerateKey(LicenseKeyModel model)
+        public IActionResult GenerateCode(LicenseKeyModel model)
         {
             string licenseKeyCode = _licenseKeyGeneratorService.GenerateLicenseKeyCode(model);
-            return PartialView();
+            return new OkObjectResult(licenseKeyCode);
         }
+
     }
 }

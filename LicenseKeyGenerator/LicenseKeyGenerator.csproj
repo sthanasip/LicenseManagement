@@ -6,4 +6,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\License.Common\License.Common.csproj" />
+    <ProjectReference Include="..\LicenseClass\LicenseClass.csproj" />
+  </ItemGroup>
+
 </Project>
