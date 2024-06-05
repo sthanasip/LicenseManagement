@@ -22,7 +22,8 @@
         <TextBox x:Name="txtExpiryDate" Grid.Row="2" Margin="120,0,0,10" Width="200" />
 
         <Label Grid.Row="3" Content="License Code:" VerticalAlignment="Top" />
-        <TextBox x:Name="txtLicenseCode" Grid.Row="3" Margin="120,0,0,10" Width="200" Height="60" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
+        <TextBox x:Name="txtLicenseCode" Grid.Row="3" Margin="120,0,0,10" Width="200" Height="60" 
+                 TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" IsReadOnly="True"/>
 
         <Button x:Name="btnGenerate" Grid.Row="4" Content="Generate" Width="75" Margin="0,10,0,0" Click="btnGenerate_Click" />
     </Grid>

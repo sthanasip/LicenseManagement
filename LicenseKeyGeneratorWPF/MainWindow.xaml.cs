@@ -1,7 +1,10 @@
-﻿using System;
+﻿using LicenseKeyGeneratorWPF.Helpers;
+using LicenseKeyGeneratorWPF.Records;
+using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Windows;
 
@@ -14,6 +17,7 @@ namespace LicenseKeyGeneratorWPF
             InitializeComponent();
         }
 
+        private const string encryptionKey = "HardCodedEncryptionKey123";
         private void btnGenerate_Click(object sender, RoutedEventArgs e)
         {
             string requestKey = txtRequestKey.Text;
@@ -44,36 +48,17 @@ namespace LicenseKeyGeneratorWPF
 
         private string GenerateLicenseCode(string requestKey, int numberOfConnections, string expiryDate)
         {
-            // Your logic to generate the license code using requestKey, numberOfConnections, and expiryDate
-            // Here we simply return a placeholder string
-            return "success";
-            //string encryptedData = EncryptData(requestKey, numberOfConnections, expiryDate);
-            //return Convert.ToBase64String(Encoding.UTF8.GetBytes(encryptedData));
+            //decrypt key to get hashed value
+            var key = Encoding.UTF8.GetString(Convert.FromBase64String(requestKey));
+            var decryptedKey = EncryptionService.DecryptString(key, encryptionKey);
+
+            // encrypt key and license details
+            var detailsToEncryptModel = new LicenseKeyGeneratorModel(decryptedKey, numberOfConnections, expiryDate);
+            string detailsToEncrypt = JsonSerializer.Serialize(detailsToEncryptModel);
+            var encryptedKey = EncryptionService.EncryptString(detailsToEncrypt, encryptionKey);
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes(encryptedKey));
         }
 
-        private string EncryptData(string requestKey, int numberOfConnections, string expiryDate)
-        {
-            string dataToEncrypt = $"{{\"RequestKey\":\"{requestKey}\",\"NumberOfLicenses\":{numberOfConnections},\"ExpiryDate\":\"{expiryDate}\"}}";
-            using (Aes aesAlg = Aes.Create())
-            {
-                aesAlg.Key = Encoding.UTF8.GetBytes("A-very-secure-key");
-                aesAlg.IV = Encoding.UTF8.GetBytes("An-initialization-");
-
-                ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
-
-                using (var msEncrypt = new System.IO.MemoryStream())
-                {
-                    using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
-                    {
-                        using (var swEncrypt = new StreamWriter(csEncrypt))
-                        {
-                            swEncrypt.Write(dataToEncrypt);
-                        }
-                        return Convert.ToBase64String(msEncrypt.ToArray());
-                    }
-                }
-            }
-        }
     }
 }
 
