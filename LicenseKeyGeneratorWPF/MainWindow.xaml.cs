@@ -35,7 +35,6 @@ namespace LicenseKeyGeneratorWPF
             catch
             {
                 MessageBox.Show("Invalid Request Key.", AppConstants.InvalidInputType, MessageBoxButton.OK, MessageBoxImage.Error);
-                txtLicenseCode.Text = "invalid rewquest";
                 return;
             }
         }
