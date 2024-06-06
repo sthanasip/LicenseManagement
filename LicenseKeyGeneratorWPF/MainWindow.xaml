@@ -16,10 +16,10 @@
         <TextBox x:Name="txtRequestKey" Grid.Row="0" Margin="120,0,0,10" Width="200" />
 
         <Label Grid.Row="1" Content="Number of Connections:" VerticalAlignment="Center" />
-        <TextBox x:Name="txtNumberOfConnections" Grid.Row="1" Margin="120,0,0,10" Width="200" />
+        <TextBox x:Name="txtNumberOfConnections" Grid.Row="1" Margin="120,0,0,10" Width="200" PreviewTextInput="NumberValidationTextBox"/>
 
         <Label Grid.Row="2" Content="Expiry Date:" VerticalAlignment="Center" />
-        <TextBox x:Name="txtExpiryDate" Grid.Row="2" Margin="120,0,0,10" Width="200" />
+        <TextBox x:Name="txtExpiryDate" Grid.Row="2" Margin="120,0,0,10" Width="200" TextChanged="DateTextChanged" PreviewTextInput="NumberValidationTextBox"/>
 
         <Label Grid.Row="3" Content="License Code:" VerticalAlignment="Top" />
         <TextBox x:Name="txtLicenseCode" Grid.Row="3" Margin="120,0,0,10" Width="200" Height="60" 
