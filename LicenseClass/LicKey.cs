@@ -13,7 +13,7 @@ namespace LicKey
         {
             clsComputerInfo hw = new clsComputerInfo();
             string hwId = hw.GetHardwareId();
-            string hashedHwId = hw.GenerateSHA512String(hwId);
+            string hashedHwId = hw.GenerateSHA256String(hwId);
             string encryptedHwId = EncryptString(hashedHwId, encryptionKey);
             return Convert.ToBase64String(Encoding.UTF8.GetBytes(encryptedHwId));
         }
@@ -33,8 +33,7 @@ namespace LicKey
                 DateTime validityDate = DateTime.ParseExact(licenseData.ExpiryDate, "dd/MM/yyyy", null);
                 clsComputerInfo hw = new clsComputerInfo();
                 string hwId = hw.GetHardwareId();
-                string hashedHwId = hw.GenerateSHA512String(hwId);
-
+                string hashedHwId = hw.GenerateSHA256String(hwId);
 
                 if (licenseData.RequestKey != hashedHwId)
                 {

@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LicenseClass\LicenseClass.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Icon\copy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

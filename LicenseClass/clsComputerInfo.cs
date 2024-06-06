@@ -116,6 +116,18 @@ namespace LicKey
             }
         }
 
+        public string GenerateSHA256String(string input)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(input);
+                byte[] hashBytes = sha256.ComputeHash(bytes);
+
+                // Convert the byte array to a Base64 string
+                return Convert.ToBase64String(hashBytes);//.Substring(0, 22); // Truncate to 22 characters
+            }
+        }
+
         public string GetHardwareId()
         {
             return GetProcessorId() + GetVolumeSerial("C") + GetMotherboardId() + GetMacAddress();
