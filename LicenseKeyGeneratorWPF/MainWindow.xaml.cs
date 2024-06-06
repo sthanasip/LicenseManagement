@@ -28,8 +28,14 @@ namespace LicenseKeyGeneratorWPF
             {
                 return;
             }
-
-            txtLicenseCode.Text = GenerateLicenseCode(requestKey, numberOfConnections, expiryDate);
+            try
+            {
+                txtLicenseCode.Text = GenerateLicenseCode(requestKey, numberOfConnections, expiryDate);
+            }
+            catch {
+                MessageBox.Show("Invalid Request Key.", AppConstants.InvalidInputType, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
         }
 
         private bool ValidateForm(string requestKey, string numberOfConnectionsText, string expiryDate, ref int numberOfConnections)
