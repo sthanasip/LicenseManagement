@@ -61,7 +61,7 @@
                Grid.Column="0"
                Margin="270,0,0,60"/>
 
-        <TextBox x:Name="txtLicenseCode" Grid.Row="3" Grid.Column="1" Margin="10,0,0,10" Height="80" 
+        <TextBox x:Name="txtLicenseCode" Grid.Row="3" Grid.Column="1" Margin="10,0,0,10" Height="100" 
                  TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" IsReadOnly="True" VerticalContentAlignment="Center" />
 
         <Button x:Name="btnGenerate" Grid.Row="4" Grid.Column="1" Content="Generate" Width="75" Margin="10,0,0,10" HorizontalAlignment="Left" Click="btnGenerate_Click" />
