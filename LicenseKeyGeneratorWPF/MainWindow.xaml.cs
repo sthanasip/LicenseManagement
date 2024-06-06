@@ -32,7 +32,8 @@ namespace LicenseKeyGeneratorWPF
             {
                 txtLicenseCode.Text = GenerateLicenseCode(requestKey, numberOfConnections, expiryDate);
             }
-            catch {
+            catch
+            {
                 MessageBox.Show("Invalid Request Key.", AppConstants.InvalidInputType, MessageBoxButton.OK, MessageBoxImage.Error);
                 txtLicenseCode.Text = "invalid rewquest";
                 return;
@@ -51,10 +52,11 @@ namespace LicenseKeyGeneratorWPF
                 return DisplayMessageBox("Number of Connections must be a valid integer and greater than 0.", AppConstants.InvalidInputType);
             }
 
-            if (ExpiryDateIsNotFutureDate(expiryDate)) {
+            if (ExpiryDateIsNotFutureDate(expiryDate))
+            {
                 return DisplayMessageBox("License expiry date must be later than current date", AppConstants.InvalidDateType);
             }
-            
+
             return true;
         }
 
@@ -66,17 +68,10 @@ namespace LicenseKeyGeneratorWPF
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e) => e.Handled = Regex.IsMatch(e.Text, AppConstants.NumberPattern);
 
-        private void CopyButton_Click(object sender, RoutedEventArgs e)
+        private void CopyToClipboard(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtLicenseCode.Text))
-            {
-                Clipboard.SetText(txtLicenseCode.Text);
-                MessageBox.Show("Text copied to clipboard!", "Copy Text", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else
-            {
-                MessageBox.Show("TextBox is empty, nothing to copy.", "Copy Text", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
+            Clipboard.SetText(txtLicenseCode.Text);
+            MessageBox.Show("Text copied to clipboard!", "Copy Text", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         private void DateTextChanged(object sender, TextChangedEventArgs e)
         {
