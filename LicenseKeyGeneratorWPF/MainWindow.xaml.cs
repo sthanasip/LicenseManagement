@@ -34,6 +34,7 @@ namespace LicenseKeyGeneratorWPF
             }
             catch {
                 MessageBox.Show("Invalid Request Key.", AppConstants.InvalidInputType, MessageBoxButton.OK, MessageBoxImage.Error);
+                txtLicenseCode.Text = "invalid rewquest";
                 return;
             }
         }
@@ -65,6 +66,18 @@ namespace LicenseKeyGeneratorWPF
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e) => e.Handled = Regex.IsMatch(e.Text, AppConstants.NumberPattern);
 
+        private void CopyButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtLicenseCode.Text))
+            {
+                Clipboard.SetText(txtLicenseCode.Text);
+                MessageBox.Show("Text copied to clipboard!", "Copy Text", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("TextBox is empty, nothing to copy.", "Copy Text", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
         private void DateTextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = sender as TextBox;

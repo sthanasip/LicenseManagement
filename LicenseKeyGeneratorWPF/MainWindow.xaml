@@ -50,6 +50,19 @@
         </Grid>
 
         <Label Grid.Row="3" Grid.Column="0" Content="License Code:" VerticalAlignment="Top" />
+        <Button 
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Margin="270,0,0,60"
+                Background="Transparent"
+                Click="CopyButton_Click"
+                Grid.Row="3"
+                Grid.Column="0">
+            
+            <Image Source="Icon/copy.png" Height="30"/>
+            <!--<TextBlock Text="&#x1F4CB;" FontSize="20"/>-->
+        </Button>
+        <!--<Image Source="Icon/copy.png" Height="20" Grid.ColumnSpan="2" Margin="58,2,621,68" Grid.Row="3" />-->
         <TextBox x:Name="txtLicenseCode" Grid.Row="3" Grid.Column="1" Margin="10,0,0,10" Width="800" Height="80" 
                  TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" IsReadOnly="True" VerticalContentAlignment="Center" />
 
