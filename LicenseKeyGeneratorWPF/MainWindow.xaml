@@ -1,7 +1,7 @@
 ﻿<Window x:Class="LicenseKeyGeneratorWPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="License Key Generator" Width="850" 
+        Title="License Key Generator" Width="900" 
         ResizeMode="CanMinimize" SizeToContent="Height">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -24,7 +24,7 @@
 
         <Label Grid.Row="0" Grid.Column="0" Content="Request Key:" VerticalAlignment="Center" />
         <Grid Grid.Row="0" Grid.Column="1" Margin="10,0,0,10">
-            <TextBox x:Name="txtRequestKey" Width="800" VerticalContentAlignment="Center" />
+            <TextBox x:Name="txtRequestKey" VerticalContentAlignment="Center" />
             <TextBlock Text="Enter Request Key" IsHitTestVisible="False" 
                        Foreground="Gray" VerticalAlignment="Center" 
                        Margin="5,0,0,0" HorizontalAlignment="Left"
@@ -33,7 +33,7 @@
 
         <Label Grid.Row="1" Grid.Column="0" Content="Number of Connections:" VerticalAlignment="Center" />
         <Grid Grid.Row="1" Grid.Column="1" Margin="10,0,0,10">
-            <TextBox x:Name="txtNumberOfConnections" Width="800" VerticalContentAlignment="Center" PreviewTextInput="NumberValidationTextBox" />
+            <TextBox x:Name="txtNumberOfConnections" VerticalContentAlignment="Center" PreviewTextInput="NumberValidationTextBox" />
             <TextBlock Text="Enter Number of Connections" IsHitTestVisible="False" 
                        Foreground="Gray" VerticalAlignment="Center" 
                        Margin="5,0,0,0" HorizontalAlignment="Left"
@@ -42,7 +42,7 @@
 
         <Label Grid.Row="2" Grid.Column="0" Content="Expiry Date (dd/MM/yyyy):" VerticalAlignment="Center" />
         <Grid Grid.Row="2" Grid.Column="1" Margin="10,0,0,10">
-            <TextBox x:Name="txtExpiryDate" Width="800" VerticalContentAlignment="Center" TextChanged="DateTextChanged" PreviewTextInput="NumberValidationTextBox" />
+            <TextBox x:Name="txtExpiryDate" VerticalContentAlignment="Center" TextChanged="DateTextChanged" PreviewTextInput="NumberValidationTextBox" />
             <TextBlock Text="Enter Expiry Date" IsHitTestVisible="False" 
                        Foreground="Gray" VerticalAlignment="Center" 
                        Margin="5,0,0,0" HorizontalAlignment="Left"
@@ -50,9 +50,9 @@
         </Grid>
 
         <Label Grid.Row="3" Grid.Column="0" Content="License Code:" VerticalAlignment="Top" />
-        <TextBox x:Name="txtLicenseCode" Grid.Row="3" Grid.Column="1" Margin="10,0,0,10" Width="800" Height="80" 
+        <TextBox x:Name="txtLicenseCode" Grid.Row="3" Grid.Column="1" Margin="10,0,0,10" Height="80" 
                  TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" IsReadOnly="True" VerticalContentAlignment="Center" />
 
-        <Button x:Name="btnGenerate" Grid.Row="4" Grid.Column="1" Content="Generate" Width="75" Margin="0,10,0,0" HorizontalAlignment="Left" Click="btnGenerate_Click" />
+        <Button x:Name="btnGenerate" Grid.Row="4" Grid.Column="1" Content="Generate" Width="75" Margin="10,0,0,10" HorizontalAlignment="Left" Click="btnGenerate_Click" />
     </Grid>
 </Window>
