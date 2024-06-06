@@ -20,24 +20,33 @@ namespace LicenseKeyGeneratorWPF
         private const string encryptionKey = "HardCodedEncryptionKey123";
         private void btnGenerate_Click(object sender, RoutedEventArgs e)
         {
-            string requestKey = txtRequestKey.Text;
-            string numberOfConnectionsText = txtNumberOfConnections.Text;
-            string expiryDate = txtExpiryDate.Text;
-
-            if (!ValidateExpiryDate(expiryDate))
+            try
             {
-                MessageBox.Show("Date must be in the format dd/MM/yyyy.", "Invalid Date", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                string requestKey = txtRequestKey.Text;
+                string numberOfConnectionsText = txtNumberOfConnections.Text;
+                string expiryDate = txtExpiryDate.Text;
+
+                if (!ValidateExpiryDate(expiryDate))
+                {
+                    MessageBox.Show("Date must be in the format dd/MM/yyyy.", "Invalid Date", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                if (!int.TryParse(numberOfConnectionsText, out int numberOfConnections))
+                {
+                    MessageBox.Show("Number of Connections must be a valid integer.", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                string licenseCode = GenerateLicenseCode(requestKey, numberOfConnections, expiryDate);
+                txtLicenseCode.Text = licenseCode;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Invalid Request Key.", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Error);
+                return ;
             }
 
-            if (!int.TryParse(numberOfConnectionsText, out int numberOfConnections))
-            {
-                MessageBox.Show("Number of Connections must be a valid integer.", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            string licenseCode = GenerateLicenseCode(requestKey, numberOfConnections, expiryDate);
-            txtLicenseCode.Text = licenseCode;
         }
 
         private bool ValidateExpiryDate(string date)
@@ -56,7 +65,8 @@ namespace LicenseKeyGeneratorWPF
             var detailsToEncryptModel = new LicenseKeyGeneratorModel(decryptedKey, numberOfConnections, expiryDate);
             string detailsToEncrypt = JsonSerializer.Serialize(detailsToEncryptModel);
             var encryptedKey = EncryptionService.EncryptString(detailsToEncrypt, encryptionKey);
-            return Convert.ToBase64String(Encoding.UTF8.GetBytes(encryptedKey));
+            var resp = Convert.ToBase64String(Encoding.UTF8.GetBytes(encryptedKey));
+            return resp;
         }
 
     }
