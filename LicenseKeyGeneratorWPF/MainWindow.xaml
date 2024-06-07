@@ -9,11 +9,11 @@
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="130" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -49,7 +49,7 @@
                        Visibility="{Binding Text.IsEmpty, ElementName=txtExpiryDate, Converter={StaticResource BooleanToVisibilityConverter}}" />
         </Grid>
 
-        <Label Grid.Row="3" Grid.Column="0" Content="License Code:" VerticalAlignment="Top" />
+        <Label Grid.Row="3" Grid.Column="0" Content="License Code:" VerticalAlignment="Top" Margin="0,3,0,0" />
 
         <Image Source="Icon/copy.png" Height="25" 
                HorizontalAlignment="Left"
@@ -59,7 +59,7 @@
                Cursor="Hand"
                Grid.Row="3"
                Grid.Column="0"
-               Margin="125,15,0,0" RenderTransformOrigin="0.5,0.5" Width="57" Grid.ColumnSpan="2">
+               Margin="125,5,0,0" RenderTransformOrigin="0.5,0.5" Width="57" Grid.ColumnSpan="2">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleX="-1"/>
@@ -70,7 +70,7 @@
             </Image.RenderTransform>
         </Image>
 
-        <TextBox x:Name="txtLicenseCode" Grid.Row="3" Grid.Column="1" Margin="10,0,0,10" Height="100" 
+        <TextBox x:Name="txtLicenseCode" Grid.Row="3" Grid.Column="1" Margin="10,0,0,10" Height="115" 
                  TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" IsReadOnly="True" VerticalContentAlignment="Center" />
 
         <Button x:Name="btnGenerate" Grid.Row="4" Grid.Column="1" Content="Generate" Width="75" Margin="10,0,0,10" HorizontalAlignment="Left" Click="btnGenerate_Click" />

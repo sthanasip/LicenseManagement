@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using LicenseClass;
 
 namespace LicenseKeyGeneratorWPF
 {
@@ -16,7 +17,7 @@ namespace LicenseKeyGeneratorWPF
         {
             InitializeComponent();
             //DEBUG START ==> DELETE THIS IN PRODUCTION
-            var key = new LicKey.LicKey();
+            var key = new LicKey();
             txtRequestKey.Text = key.GenerateRequestKey();
             //END
         }
