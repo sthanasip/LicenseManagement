@@ -18,6 +18,7 @@ namespace LicenseKeyGeneratorWPF.Constants
         public const int MaxNumberOfDays = 31;
         public const int MaxNumberOfMonth = 12;
         public const int MinimumDaysAndMonth = 1;
+        public const int MonthStartOrder = 3;
 
 
 

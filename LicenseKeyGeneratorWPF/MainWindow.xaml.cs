@@ -1,4 +1,5 @@
-﻿using LicenseKeyGeneratorWPF.Constants;
+﻿using LicenseClass;
+using LicenseKeyGeneratorWPF.Constants;
 using LicenseKeyGeneratorWPF.Helpers;
 using LicenseKeyGeneratorWPF.Records;
 using System.Text;
@@ -78,6 +79,23 @@ namespace LicenseKeyGeneratorWPF
             if (textBox != null)
             {
                 string text = textBox.Text.Replace("/", string.Empty); // Remove existing slashes
+                if(text.Length == AppConstants.MinimumDaysAndMonth)
+                {
+                    var val = Convert.ToInt16(text);
+                    if(val > AppConstants.MonthStartOrder)
+                    {
+                        text = $"0{text}";
+                    }
+                }
+                if(text.Length == AppConstants.MonthStartOrder)
+                {
+                    var test = (text.Last()).ToString();
+                    var intMonth = int.Parse(test);
+                    if(intMonth > AppConstants.MinimumDaysAndMonth)
+                    {
+                        text = $"{text.Substring(0, text.Length - 1)}0{intMonth}";
+                    }
+                }
                 if (text.Length > AppConstants.LengthOfDate) // Limit the length to 8 characters (ddMMyyyy)
                 {
                     text = text.Substring(0, AppConstants.LengthOfDate);
