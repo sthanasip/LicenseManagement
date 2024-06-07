@@ -9,13 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Icon\copy.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Icon\copy.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    <ProjectReference Include="..\LicenseClass\LicenseClass.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,7 +5,9 @@ VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LicenseClass", "LicenseClass\LicenseClass.csproj", "{C2CA097A-CA5C-4397-8852-B28F85EBA5D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicenseKeyGeneratorWPF", "LicenseKeyGeneratorWPF\LicenseKeyGeneratorWPF.csproj", "{5025F816-9F8C-4DBD-924C-7995956D5283}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LicenseKeyGeneratorWPF", "LicenseKeyGeneratorWPF\LicenseKeyGeneratorWPF.csproj", "{5025F816-9F8C-4DBD-924C-7995956D5283}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicenseRequestKey", "LicenseRequestKey\LicenseRequestKey.csproj", "{CD0A85A5-6443-46E2-977C-8EDF44F6C807}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{5025F816-9F8C-4DBD-924C-7995956D5283}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5025F816-9F8C-4DBD-924C-7995956D5283}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5025F816-9F8C-4DBD-924C-7995956D5283}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD0A85A5-6443-46E2-977C-8EDF44F6C807}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD0A85A5-6443-46E2-977C-8EDF44F6C807}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD0A85A5-6443-46E2-977C-8EDF44F6C807}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD0A85A5-6443-46E2-977C-8EDF44F6C807}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
