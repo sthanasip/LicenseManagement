@@ -1,5 +1,4 @@
-﻿using LicenseClass;
-using LicenseKeyGeneratorWPF.Constants;
+﻿using LicenseKeyGeneratorWPF.Constants;
 using LicenseKeyGeneratorWPF.Helpers;
 using LicenseKeyGeneratorWPF.Records;
 using System.Text;
