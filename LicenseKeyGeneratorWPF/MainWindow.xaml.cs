@@ -1,6 +1,7 @@
 ﻿using LicenseKeyGeneratorWPF.Constants;
 using LicenseKeyGeneratorWPF.Helpers;
 using LicenseKeyGeneratorWPF.Records;
+using System.Globalization;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -51,9 +52,10 @@ namespace LicenseKeyGeneratorWPF
                 return DisplayMessageBox("Number of Connections must be a valid integer and greater than 0.", AppConstants.InvalidInputType);
             }
 
-            if (ExpiryDateIsNotFutureDate(expiryDate))
+            (bool isDateInvalid, string message) = InvalidDateOrExpiryDateIsNotFutureDate(expiryDate);
+            if (isDateInvalid)
             {
-                return DisplayMessageBox("License expiry date must be later than current date", AppConstants.InvalidDateType);
+                return DisplayMessageBox(message, AppConstants.InvalidDateType);
             }
 
             return true;
@@ -78,19 +80,19 @@ namespace LicenseKeyGeneratorWPF
             if (textBox != null)
             {
                 string text = textBox.Text.Replace("/", string.Empty); // Remove existing slashes
-                if(text.Length == AppConstants.MinimumDaysAndMonth)
+                if (text.Length == AppConstants.MinimumDaysAndMonth)
                 {
                     var val = Convert.ToInt16(text);
-                    if(val > AppConstants.MonthStartOrder)
+                    if (val > AppConstants.MonthStartOrder)
                     {
                         text = $"0{text}";
                     }
                 }
-                if(text.Length == AppConstants.MonthStartOrder)
+                if (text.Length == AppConstants.MonthStartOrder)
                 {
                     var test = (text.Last()).ToString();
                     var intMonth = int.Parse(test);
-                    if(intMonth > AppConstants.MinimumDaysAndMonth)
+                    if (intMonth > AppConstants.MinimumDaysAndMonth)
                     {
                         text = $"{text.Substring(0, text.Length - 1)}0{intMonth}";
                     }
@@ -147,10 +149,18 @@ namespace LicenseKeyGeneratorWPF
             return false;
         }
 
-        private bool ExpiryDateIsNotFutureDate(string date)
+        private (bool, string) InvalidDateOrExpiryDateIsNotFutureDate(string date)
         {
-            var expiryDate = DateTime.ParseExact(date, "dd/MM/yyyy", null); ;
-            return expiryDate.Date < DateTime.UtcNow.AddDays(1).Date;
+            if(!(DateTime.TryParseExact(date, "dd/MM/yyyy", null, DateTimeStyles.None, out DateTime expiryDate)))
+            {
+                return (true, "The date is invalid");
+            }
+
+            if(expiryDate.Date < DateTime.UtcNow.AddDays(1).Date)
+            {
+                return (true, "License expiry date must be later than current date");
+            }
+            return (false, string.Empty);
         }
 
         private string GenerateLicenseCode(string requestKey, int numberOfConnections, string expiryDate)
